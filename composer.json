@@ -1,0 +1,27 @@
+{
+    "name": "debesha/doctrine-hydration-profiler-bundle",
+    "type":        "symfony-bundle",
+    "description": "Information about hydration of doctrine entities at the profiler",
+    "keywords":    ["debesha", "profiler", "extra", "bundle", "doctrine", "symfony"],
+    "homepage":    "http://github.com/debesha/DoctrineProfileExtraBundle",
+    "license":     "MIT",
+    "authors": [
+        {
+            "name": "Dmytro Malyshenko",
+            "homepage": "http://malyshenko.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "doctrine/orm": "~2.2,>=2.2.3,<2.5",
+        "doctrine/doctrine-bundle": "~1.2",
+        "symfony/framework-bundle": "~2.1",
+        "symfony/twig-bundle": "~2.0",
+        "twig/twig": "~1.12"
+    },
+    "autoload": {
+        "psr-4": {
+            "Debesha\\DoctrineProfileExtraBundle\\": "."
+        }
+    }
+}
