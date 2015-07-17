@@ -1,7 +1,7 @@
 <?xml version="1.0" ?>
 <!-- Redefines class parameteres used inside doctine bundle in order to initiate instances of configuration and entity manager of their extended classes
  where logging functionality is added -->
-        
+
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
