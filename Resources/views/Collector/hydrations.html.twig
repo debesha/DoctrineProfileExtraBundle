@@ -3,7 +3,7 @@
 {% block toolbar %}
     {% set icon %}
     <img width="20" height="28" alt="Database"
-         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAYAAABh2p9gAAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAQRJREFUeNpi/P//PwM1ARMDlcGogZQDlpMnT7pxc3NbA9nhQKxOpL5rQLwJiPeBsI6Ozl+YBOOOHTv+AOllQNwtLS39F2owKYZ/gRq8G4i3ggxEToggWzvc3d2Pk+1lNL4fFAs6ODi8JzdS7mMRVyDVoAMHDsANdAPiOCC+jCQvQKqBQB/BDbwBxK5AHA3E/kB8nKJkA8TMQBwLxaBIKQbi70AvTADSBiSadwFXpCikpKQU8PDwkGTaly9fHFigkaKIJid4584dkiMFFI6jkTJII0WVmpHCAixZQEXWYhDeuXMnyLsVlEQKI45qFBQZ8eRECi4DBaAlDqle/8A48ip6gAADANdQY88Uc0oGAAAAAElFTkSuQmCC"/>
+         src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAcCAQAAADL01frAAAAc0lEQVRYw2NgGKHA/j9hSCOFxLtxGkETp0EUMttvxKtsoz0zzExO+5M4lZ2050S2XtT+NlZlt+1F0V2qYv8KQ9krexVsnjKz/4ai7Ju9GS7/+9n/gSv7Y++HL6iK4ApLiYx5opPIoFd42N6esEJiFNEXAACHxtJAA21LJQAAAABJRU5ErkJggg=="/>
     <span class="sf-toolbar-status{% if 50 < collector.hydrationsCount %} sf-toolbar-status-yellow{% endif %}">{{ collector.hydrationsCount }}</span>
     {% if collector.hydrationsCount > 0 %}
         <span class="sf-toolbar-info-piece-additional-detail">in {{ '%0.2f'|format(collector.time * 1000) }} ms</span>
@@ -20,7 +20,7 @@
 {% block menu %}
     <span class="label">
     <span class="icon"><img
-                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAcCAYAAAB/E6/TAAABLUlEQVR42u3TP0vDQBiA8UK/gDiLzi0IhU4OEunk5OQUAhGSOBUCzqWfIKSzX8DRySF0URCcMjWLIJjFD9Cpk/D6HITecEPUuzhIAz8CIdyTP/f2iqI4qaqqDx8l5Ic2uIeP/bquezCokOAFF+oCN3t4gPzSEjc4NEPaCldQbzjELTYW0RJzHDchwwem+ons6ZBpLSJ7nueJC22h0V+FzmwWV0ee59vQNV67CGVZJmEYbkNjfpY6X6I0Qo4/3RMmTdDDspuQVsJvgkP3IdMbIkIjLPBoadG2646iKJI0Ta2wxm6OdnP0/Tk6DYJgHcfxpw21RtscDTDDnaVZ26474GkkSRIrrPEv5sgMTfHe+cA2O6wPH6vOBpYQNALneHb96XTEDI6dzpEZ0VzO0Rf3pP5LMLI4tAAAAABJRU5ErkJggg=="
+                src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABoAAAAcCAQAAADVGmdYAAAAj0lEQVRYw2NgoCOw/08aHAqayAuImSTZNBOiic3+ANFaDtizwewStX9IlJaH9qLITtS1/0ZQyzd7XXSfBRLUFIItQBrxamnEFY7rcGpZhzvweewvYdVyyZ4HX5wp2r/C0PLKXpFQVNvb/0TR8tPeiZgUkomiKZPYhEVO8hzVhK7psL09aZpI0QDWRKoGYgAAbZWBPJGSXuoAAAAASUVORK5CYII="
                 alt=""/></span>
     <strong>Hydrations</strong>
     <span class="count">
