@@ -1,37 +1,37 @@
 <?php
 
-namespace Debesha\DoctrineProfileExtraBundle\ORM;
-
-/**
- * Add methods to operate with hydration logger
- *
- * @author Dmytro Malyshenko <dmitry@malyshenko.com>
- */
-
-class LoggingConfiguration extends \Doctrine\ORM\Configuration
-{
+    namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
     /**
-     * Gets the hydration logger.
+     * Add methods to operate with hydration logger
      *
-     * @return HydrationLogger
+     * For the full copyright and license information, please view the LICENSE
+     * file that was distributed with this source code.
+     *
+     * @author Dmytro Malyshenko <dmitry@malyshenko.com>
      */
-    public function getHydrationLogger()
-    {
-        return isset($this->_attributes['hydrationLogger'])
-            ? $this->_attributes['hydrationLogger']
-            : null;
-    }
 
-    /**
-     * Sets the hydration logger.
-     *
-     * @param HydrationLogger $ns
-     *
-     * @return void
-     */
-    public function setHydrationLogger(HydrationLogger $logger)
-    {
-        $this->_attributes['hydrationLogger'] = $logger;
+    class LoggingConfiguration extends \Doctrine\ORM\Configuration {
+
+        /**
+         * Gets the hydration logger.
+         *
+         * @return HydrationLogger
+         */
+        public function getHydrationLogger() {
+            return isset($this->_attributes['hydrationLogger'])
+                ? $this->_attributes['hydrationLogger']
+                : null;
+        }
+
+        /**
+         * Sets the hydration logger.
+         *
+         * @param HydrationLogger $ns
+         *
+         * @return void
+         */
+        public function setHydrationLogger(HydrationLogger $logger) {
+            $this->_attributes['hydrationLogger'] = $logger;
+        }
     }
-}

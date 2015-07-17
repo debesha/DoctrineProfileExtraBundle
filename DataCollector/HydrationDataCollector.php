@@ -1,59 +1,61 @@
 <?php
-/**
- * Author: Dmytry Malyshenko (dmitry@malyshenko.com)
- * Date: 16.07.2015
- * Time: 19:11
- */
-
-namespace Debesha\DoctrineProfileExtraBundle\DataCollector;
-
-use Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger;
-use Symfony\Component\HttpFoundation\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\DataCollector\DataCollector;
-
-class HydrationDataCollector extends DataCollector {
     /**
-     * @var HydrationLogger
+     * Data collector takes information about performed hydrations from
+     * injected hydrationLogger
+     *
+     * Author: Dmytry Malyshenko (dmitry@malyshenko.com)
+     * Date: 16.07.2015
+     * Time: 19:11
+     *
+     * For the full copyright and license information, please view the LICENSE
+     * file that was distributed with this source code.
      */
-    private $hydrationLogger = array();
 
-    public function __construct(HydrationLogger $logger) {
+    namespace Debesha\DoctrineProfileExtraBundle\DataCollector;
 
-        $this->hydrationLogger = $logger;
-    }
+    use Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger;
+    use Symfony\Component\HttpFoundation\Request;
+    use Symfony\Component\HttpFoundation\Response;
+    use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
-    public function collect(Request $request, Response $response, \Exception $exception = null)
-    {
+    class HydrationDataCollector extends DataCollector {
 
-        $this->data['hydrations'] = $this->hydrationLogger->hydrations;
-    }
+        /**
+         * @var HydrationLogger
+         */
+        private $hydrationLogger = array ();
 
-    public function getHydrations()
-    {
-        return $this->data['hydrations'];
-    }
+        public function __construct(HydrationLogger $logger) {
 
-    public function getHydrationsCount()
-    {
-        return count($this->data['hydrations']);
-    }
-
-    public function getTime()
-    {
-        $time = 0;
-        foreach ($this->data['hydrations'] as $hydration) {
-           $time += $hydration['executionMS'];
+            $this->hydrationLogger = $logger;
         }
 
-        return $time;
-    }
+        public function collect(Request $request, Response $response, \Exception $exception = null) {
 
-    /**
-     * {@inheritdoc}
-     */
-    public function getName()
-    {
-        return 'hydrations';
+            $this->data['hydrations'] = $this->hydrationLogger->hydrations;
+        }
+
+        public function getHydrations() {
+            return $this->data['hydrations'];
+        }
+
+        public function getHydrationsCount() {
+            return count($this->data['hydrations']);
+        }
+
+        public function getTime() {
+            $time = 0;
+            foreach ($this->data['hydrations'] as $hydration) {
+                $time += $hydration['executionMS'];
+            }
+
+            return $time;
+        }
+
+        /**
+         * {@inheritdoc}
+         */
+        public function getName() {
+            return 'hydrations';
+        }
     }
-}
