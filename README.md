@@ -24,6 +24,8 @@ Next step is to register the bundle in AppKernel (`app/AppKernel.php`)
         $bundles[] = new Debesha\DoctrineProfileExtraBundle\DebeshaDoctrineProfileExtraBundle();
     }
 
+**Attention! The bundle MUST be included AFTER DoctrineBundle.**
+
 That's it.
 
 ## Screenshots
