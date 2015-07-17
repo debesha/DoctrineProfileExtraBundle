@@ -39,7 +39,7 @@
         /**
          */
 
-        public function __construct(LoggingEntityManager $entityManager) {
+        public function __construct(EntityManager $entityManager) {
 
             $entityManager->getConfiguration()->setHydrationLogger($this);
         }
