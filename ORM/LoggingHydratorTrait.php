@@ -14,6 +14,12 @@
 
     namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
+    use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
+    use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
+    use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
+    use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
+    use Doctrine\ORM\Internal\Hydration\SingleScalarHydrator;
+
     trait LoggingHydratorTrait {
 
         /**
@@ -27,8 +33,24 @@
          */
 
         public function hydrateAll($stmt, $resultSetMapping, array $hints = array ()) {
-            if ($logger = $this->_em->getConfiguration()->getHydrationLogger())
-                $logger->start();
+            if ($logger = $this->_em->getConfiguration()->getHydrationLogger()) {
+
+                $type = null;
+
+                if ($this instanceof ObjectHydrator) {
+                    $type = "ObjectHydrator";
+                } elseif ($this instanceof ArrayHydrator) {
+                    $type = "ArrayHydrator";
+                } elseif ($this instanceof ScalarHydrator) {
+                    $type = "ScalarHydrator";
+                } elseif ($this instanceof SimpleObjectHydrator) {
+                    $type = "SimpleObjectHydrator";
+                } elseif ($this instanceof SingleScalarHydrator) {
+                    $type = "SingleScalarHydrator";
+                }
+
+                $logger->start($type);
+            }
 
             $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
 

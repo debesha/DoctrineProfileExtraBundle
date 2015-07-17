@@ -58,22 +58,24 @@
         /**
          * Marks a hydration as started. Timing is started
          *
+         * @param String $type type of hydration
+         *
          * @return void
          */
 
-        public function start() {
+        public function start($type) {
             if ($this->enabled) {
                 $this->start = microtime(true);
-            }
 
-            $this->currentHydration++;
+                $this->hydrations[++$this->currentHydration]['type'] = $type;
+            }
         }
 
         /**
          * Marks a hydration as stopped. Number of hydrated entities and alias map is
          * passed to method.
          *
-         * @param int $resultNum
+         * @param int   $resultNum
          * @param array $aliasMap
          *
          * @return void

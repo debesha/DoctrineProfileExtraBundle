@@ -73,6 +73,8 @@
                     Time<span></span></th>
                 <th onclick="javascript:sortTable(this, 2, 'hydrations')" style="cursor: pointer;">
                     Entities<span></span></th>
+                <th onclick="javascript:sortTable(this, 3, 'hydrations')" style="cursor: pointer;">
+                    Type<span></span></th>
                 <th style="width: 100%;">Alias Map</th>
             </tr>
             </thead>
@@ -82,6 +84,7 @@
                     <td>{{ loop.index }}</td>
                     <td>{{ '%0.2f'|format(hydration.executionMS * 1000) }}&nbsp;ms</td>
                     <td>{{ hydration.resultNum }}</td>
+                    <td>{{ hydration.type }}</td>
                     <td>
                         <ul>
                             {% for alias, class in hydration.aliasMap %}
