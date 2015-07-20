@@ -46,7 +46,8 @@
         public function getTime() {
             $time = 0;
             foreach ($this->data['hydrations'] as $hydration) {
-                $time += $hydration['executionMS'];
+                if (isset($hydration['executionMS']))
+                    $time += $hydration['executionMS'];
             }
 
             return $time;

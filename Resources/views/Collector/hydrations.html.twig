@@ -82,15 +82,23 @@
             {% for i, hydration in collector.hydrations %}
                 <tr id="hydrationNo-{{ i }}" class="{{ cycle(['odd', 'even'], i) }}">
                     <td>{{ loop.index }}</td>
-                    <td>{{ '%0.2f'|format(hydration.executionMS * 1000) }}&nbsp;ms</td>
-                    <td>{{ hydration.resultNum }}</td>
-                    <td>{{ hydration.type }}</td>
+                    <td>{% if hydration.executionMS is defined %}
+                            {{ '%0.2f'|format(hydration.executionMS * 1000) }}&nbsp;ms
+                        {% else %}
+                            Unknown
+                        {% endif %}
+                    </td>
+
+                    <td>{% if hydration.resultNum is defined %}{{ hydration.resultNum }}{% else %}Unknown{% endif %}</td>
+                    <td>{% if hydration.type is defined %}{{ hydration.type }} {% else %}Unknown{% endif %}</td>
                     <td>
+                        {% if hydration.aliasMap is defined %}
                         <ul>
                             {% for alias, class in hydration.aliasMap %}
                                 <li>{{ alias }} => {{ class }}</li>
                             {% endfor %}
                         </ul>
+                        {% else %}Unknown{% endif %}
                     </td>
                 </tr>
             {% endfor %}
