@@ -18,8 +18,15 @@
          * {@inheritdoc}
          */
         public function load(array $configs, ContainerBuilder $container) {
+
+            if (!$container->hasParameter("doctrine.orm.entity_manager.class")) {
+
+                throw new \InvalidArgumentException("You must include DoctrineBundle/DoctrineBundle before DebeshaDoctrineProfileExtraBundle in your AppKerner.php");
+            }
+
             $configuration = new Configuration();
             $config = $this->processConfiguration($configuration, $configs);
+
 
             $loader = new Loader\XmlFileLoader($container, new FileLocator(__DIR__ . '/../Resources/config'));
             $loader->load('services.xml');
