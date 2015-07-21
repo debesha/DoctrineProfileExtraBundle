@@ -33,6 +33,6 @@ That's it.
 Your profile gets a new section where you may get an information about how fast was hydrations made and 
 how many entities was hydrated.
 
-![Screenshot](https://raw.githubusercontent.com/debesha/DoctrineProfileExtraBundle/master/screen1.png)
+![Screenshot](http://imgur.com/GsvkIIN)
 
-![Screenshot](https://raw.githubusercontent.com/debesha/DoctrineProfileExtraBundle/master/screen2.png)
+![Screenshot](http://imgur.com/pkLzlc8)
