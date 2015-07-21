@@ -18,36 +18,43 @@
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
-    class HydrationDataCollector extends DataCollector {
+    class HydrationDataCollector extends DataCollector
+    {
 
         /**
          * @var HydrationLogger
          */
         private $hydrationLogger = array ();
 
-        public function __construct(HydrationLogger $logger) {
+        public function __construct(HydrationLogger $logger)
+        {
 
             $this->hydrationLogger = $logger;
         }
 
-        public function collect(Request $request, Response $response, \Exception $exception = null) {
+        public function collect(Request $request, Response $response, \Exception $exception = null)
+        {
 
             $this->data['hydrations'] = $this->hydrationLogger->hydrations;
         }
 
-        public function getHydrations() {
+        public function getHydrations()
+        {
             return $this->data['hydrations'];
         }
 
-        public function getHydrationsCount() {
+        public function getHydrationsCount()
+        {
             return count($this->data['hydrations']);
         }
 
-        public function getTime() {
+        public function getTime()
+        {
             $time = 0;
             foreach ($this->data['hydrations'] as $hydration) {
-                if (isset($hydration['executionMS']))
+                if (isset($hydration['executionMS'])) {
                     $time += $hydration['executionMS'];
+                }
             }
 
             return $time;
@@ -56,7 +63,8 @@
         /**
          * {@inheritdoc}
          */
-        public function getName() {
+        public function getName()
+        {
             return 'hydrations';
         }
     }

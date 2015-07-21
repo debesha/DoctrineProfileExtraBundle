@@ -15,7 +15,8 @@
 
     use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
 
-    class LoggingSimpleObjectHydrator extends SimpleObjectHydrator {
+    class LoggingSimpleObjectHydrator extends SimpleObjectHydrator
+    {
 
         use LoggingHydratorTrait;
 

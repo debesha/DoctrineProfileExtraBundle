@@ -23,12 +23,14 @@
     use Doctrine\ORM\Query;
     use Doctrine\DBAL\Connection;
 
-    class LoggingEntityManager extends EntityManager {
+    class LoggingEntityManager extends EntityManager
+    {
 
         /**
          * {@inheritDoc}
          */
-        public function newHydrator($hydrationMode) {
+        public function newHydrator($hydrationMode)
+        {
 
             switch ($hydrationMode) {
                 case Query::HYDRATE_OBJECT:
@@ -53,7 +55,8 @@
         /**
          * @return LoggingConfiguration
          */
-        public function getConfiguration() {
+        public function getConfiguration()
+        {
             return parent::getConfiguration();
         }
 
@@ -61,7 +64,8 @@
          * {@inheritDoc}
          */
 
-        public static function create($conn, Configuration $config, EventManager $eventManager = null) {
+        public static function create($conn, Configuration $config, EventManager $eventManager = null)
+        {
             if (!$config->getMetadataDriverImpl()) {
                 throw ORMException::missingMappingDriverImpl();
             }

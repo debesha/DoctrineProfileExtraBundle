@@ -13,7 +13,8 @@
 
     namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    class LoggingObjectHydrator extends \Doctrine\ORM\Internal\Hydration\ObjectHydrator {
+    class LoggingObjectHydrator extends \Doctrine\ORM\Internal\Hydration\ObjectHydrator
+    {
 
         use LoggingHydratorTrait;
     }

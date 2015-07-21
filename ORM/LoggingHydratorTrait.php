@@ -20,7 +20,8 @@
     use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
     use Doctrine\ORM\Internal\Hydration\SingleScalarHydrator;
 
-    trait LoggingHydratorTrait {
+    trait LoggingHydratorTrait
+    {
 
         /**
          * Hydrates all rows returned by the passed statement instance at once.
@@ -32,7 +33,8 @@
          * @return array
          */
 
-        public function hydrateAll($stmt, $resultSetMapping, array $hints = array ()) {
+        public function hydrateAll($stmt, $resultSetMapping, array $hints = array ())
+        {
             if ($logger = $this->_em->getConfiguration()->getHydrationLogger()) {
 
                 $type = null;

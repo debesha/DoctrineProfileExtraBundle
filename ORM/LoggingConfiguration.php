@@ -11,14 +11,16 @@
      * @author Dmytro Malyshenko <dmitry@malyshenko.com>
      */
 
-    class LoggingConfiguration extends \Doctrine\ORM\Configuration {
+    class LoggingConfiguration extends \Doctrine\ORM\Configuration
+    {
 
         /**
          * Gets the hydration logger.
          *
          * @return HydrationLogger
          */
-        public function getHydrationLogger() {
+        public function getHydrationLogger()
+        {
             return isset($this->_attributes['hydrationLogger'])
                 ? $this->_attributes['hydrationLogger']
                 : null;
@@ -31,7 +33,8 @@
          *
          * @return void
          */
-        public function setHydrationLogger(HydrationLogger $logger) {
+        public function setHydrationLogger(HydrationLogger $logger)
+        {
             $this->_attributes['hydrationLogger'] = $logger;
         }
     }

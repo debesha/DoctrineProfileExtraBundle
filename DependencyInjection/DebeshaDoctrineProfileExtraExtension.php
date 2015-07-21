@@ -12,12 +12,14 @@
      *
      * To learn more see {@link http://symfony.com/doc/current/cookbook/bundles/extension.html}
      */
-    class DebeshaDoctrineProfileExtraExtension extends Extension {
+    class DebeshaDoctrineProfileExtraExtension extends Extension
+    {
 
         /**
          * {@inheritdoc}
          */
-        public function load(array $configs, ContainerBuilder $container) {
+        public function load(array $configs, ContainerBuilder $container)
+        {
 
             if (!$container->hasParameter("doctrine.orm.entity_manager.class")) {
 

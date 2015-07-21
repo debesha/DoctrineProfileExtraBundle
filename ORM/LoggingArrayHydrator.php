@@ -15,7 +15,8 @@
 
     use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
 
-    class LoggingArrayHydrator extends ArrayHydrator {
+    class LoggingArrayHydrator extends ArrayHydrator
+    {
 
         use LoggingHydratorTrait;
     }

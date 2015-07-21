@@ -18,7 +18,8 @@
      * @author Dmytro Malyshenko <dmitry@malyshenko.com>
      *
      */
-    class HydrationLogger {
+    class HydrationLogger
+    {
 
         /**
          * Executed hydrations
@@ -50,7 +51,8 @@
          *
          */
 
-        public function __construct(EntityManager $entityManager) {
+        public function __construct(EntityManager $entityManager)
+        {
 
             $entityManager->getConfiguration()->setHydrationLogger($this);
         }
@@ -63,7 +65,8 @@
          * @return void
          */
 
-        public function start($type) {
+        public function start($type)
+        {
             if ($this->enabled) {
                 $this->start = microtime(true);
 
@@ -81,7 +84,8 @@
          * @return void
          */
 
-        public function stop($resultNum, $aliasMap) {
+        public function stop($resultNum, $aliasMap)
+        {
             if ($this->enabled) {
                 $this->hydrations[$this->currentHydration]['executionMS'] = microtime(true) - $this->start;
                 $this->hydrations[$this->currentHydration]['resultNum'] = $resultNum;

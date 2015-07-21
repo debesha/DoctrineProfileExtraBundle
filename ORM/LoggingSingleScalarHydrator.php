@@ -16,7 +16,8 @@
 
     use Doctrine\ORM\Internal\Hydration\SingleScalarHydrator;
 
-    class LoggingSingleScalarHydrator extends SingleScalarHydrator {
+    class LoggingSingleScalarHydrator extends SingleScalarHydrator
+    {
 
         use LoggingHydratorTrait;
 
