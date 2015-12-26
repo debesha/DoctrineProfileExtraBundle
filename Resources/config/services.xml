@@ -12,14 +12,9 @@
     </parameters>
 
     <services>
-        <service id="debesha.doctrine_extra_profiler.logger"
-                 class="Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger" public="false">
-            <argument type="service" id="doctrine.orm.entity_manager"/>
-        </service>
-
         <service id="debesha.doctrine_extra_profiler.data_collector"
                  class="Debesha\DoctrineProfileExtraBundle\DataCollector\HydrationDataCollector" public="false">
-            <argument type="service" id="debesha.doctrine_extra_profiler.logger"/>
+            <argument type="service" id="doctrine.orm.entity_manager"/>
             <tag name="data_collector" template="DebeshaDoctrineProfileExtraBundle:Collector:hydrations.html.twig"
                  id="hydrations"/>
         </service>
