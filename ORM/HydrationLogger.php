@@ -46,18 +46,6 @@
         public $currentHydration = 0;
 
         /**
-         * EntityManager is injected in order to make backward injection of logger into entity manager
-         * configuration
-         *
-         */
-
-        public function __construct(EntityManager $entityManager)
-        {
-
-            $entityManager->getConfiguration()->setHydrationLogger($this);
-        }
-
-        /**
          * Marks a hydration as started. Timing is started
          *
          * @param String $type type of hydration

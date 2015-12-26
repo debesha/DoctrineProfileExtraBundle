@@ -14,6 +14,8 @@
     namespace Debesha\DoctrineProfileExtraBundle\DataCollector;
 
     use Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger;
+    use Debesha\DoctrineProfileExtraBundle\ORM\LoggingConfiguration;
+    use Doctrine\ORM\EntityManager;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
     use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -26,10 +28,10 @@
          */
         private $hydrationLogger = array ();
 
-        public function __construct(HydrationLogger $logger)
+        public function __construct(EntityManager $manager)
         {
 
-            $this->hydrationLogger = $logger;
+            $this->hydrationLogger = $manager->getConfiguration()->getHydrationLogger();
         }
 
         public function collect(Request $request, Response $response, \Exception $exception = null)

@@ -14,6 +14,11 @@
     class LoggingConfiguration extends \Doctrine\ORM\Configuration
     {
 
+        public function __construct()
+        {
+            $hydrationLogger = new HydrationLogger();
+            $this->setHydrationLogger($hydrationLogger);
+        }
         /**
          * Gets the hydration logger.
          *
