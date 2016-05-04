@@ -11,12 +11,11 @@
      * Time: 12:51
      */
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
+use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
 
     class LoggingScalarHydrator extends ScalarHydrator
     {
-
         use LoggingHydratorTrait;
     }

@@ -1,8 +1,8 @@
 <?php
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManager;
 
     /**
      * Collects information about performed hydrations
@@ -16,22 +16,20 @@
      * file that was distributed with this source code.
      *
      * @author Dmytro Malyshenko <dmitry@malyshenko.com>
-     *
      */
     class HydrationLogger
     {
-
         /**
          * Executed hydrations
          *
          * @var array
          */
-        public $hydrations = array ();
+        public $hydrations = [];
 
         /**
          * If Debug Stack is enabled (log queries) or not.
          *
-         * @var boolean
+         * @var bool
          */
         public $enabled = true;
 
@@ -41,18 +39,15 @@
         public $start = null;
 
         /**
-         * @var integer
+         * @var int
          */
         public $currentHydration = 0;
 
         /**
          * Marks a hydration as started. Timing is started
          *
-         * @param String $type type of hydration
-         *
-         * @return void
+         * @param string $type type of hydration
          */
-
         public function start($type)
         {
             if ($this->enabled) {
@@ -68,10 +63,7 @@
          *
          * @param int   $resultNum
          * @param array $aliasMap
-         *
-         * @return void
          */
-
         public function stop($resultNum, $aliasMap)
         {
             if ($this->enabled) {

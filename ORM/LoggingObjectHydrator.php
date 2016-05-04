@@ -11,10 +11,9 @@
      * Time: 12:48
      */
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    class LoggingObjectHydrator extends \Doctrine\ORM\Internal\Hydration\ObjectHydrator
-    {
-
-        use LoggingHydratorTrait;
-    }
+class LoggingObjectHydrator extends \Doctrine\ORM\Internal\Hydration\ObjectHydrator
+{
+    use LoggingHydratorTrait;
+}

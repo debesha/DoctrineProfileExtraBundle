@@ -11,13 +11,11 @@
      * Time: 19:38
      */
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
+use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
 
     class LoggingSimpleObjectHydrator extends SimpleObjectHydrator
     {
-
         use LoggingHydratorTrait;
-
     }

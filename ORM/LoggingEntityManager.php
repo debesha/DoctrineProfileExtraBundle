@@ -14,9 +14,9 @@
      * Time: 12:52
      */
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    use Doctrine\Common\EventManager;
+use Doctrine\Common\EventManager;
     use Doctrine\ORM\Configuration;
     use Doctrine\ORM\EntityManager;
     use Doctrine\ORM\ORMException;
@@ -25,13 +25,11 @@
 
     class LoggingEntityManager extends EntityManager
     {
-
         /**
-         * {@inheritDoc}
+         * {@inheritdoc}
          */
         public function newHydrator($hydrationMode)
         {
-
             switch ($hydrationMode) {
                 case Query::HYDRATE_OBJECT:
                     return new LoggingObjectHydrator($this);
@@ -61,9 +59,8 @@
         }
 
         /**
-         * {@inheritDoc}
+         * {@inheritdoc}
          */
-
         public static function create($conn, Configuration $config, EventManager $eventManager = null)
         {
             if (!$config->getMetadataDriverImpl()) {
@@ -71,22 +68,22 @@
             }
 
             switch (true) {
-                case (is_array($conn)):
+                case is_array($conn):
                     $conn = \Doctrine\DBAL\DriverManager::getConnection(
                         $conn, $config, ($eventManager ?: new EventManager())
                     );
                     break;
 
-                case ($conn instanceof Connection):
+                case $conn instanceof Connection:
                     if ($eventManager !== null && $conn->getEventManager() !== $eventManager) {
                         throw ORMException::mismatchedEventManager();
                     }
                     break;
 
                 default:
-                    throw new \InvalidArgumentException("Invalid argument: " . $conn);
+                    throw new \InvalidArgumentException('Invalid argument: '.$conn);
             }
 
-            return new LoggingEntityManager($conn, $config, $conn->getEventManager());
+            return new self($conn, $config, $conn->getEventManager());
         }
     }

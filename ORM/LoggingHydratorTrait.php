@@ -12,9 +12,9 @@
      * Date: 16.07.2015
      */
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
+use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
     use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
     use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
     use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
@@ -22,7 +22,6 @@
 
     trait LoggingHydratorTrait
     {
-
         /**
          * Hydrates all rows returned by the passed statement instance at once.
          *
@@ -32,23 +31,21 @@
          *
          * @return array
          */
-
-        public function hydrateAll($stmt, $resultSetMapping, array $hints = array ())
+        public function hydrateAll($stmt, $resultSetMapping, array $hints = [])
         {
             if ($logger = $this->_em->getConfiguration()->getHydrationLogger()) {
-
                 $type = null;
 
                 if ($this instanceof ObjectHydrator) {
-                    $type = "ObjectHydrator";
+                    $type = 'ObjectHydrator';
                 } elseif ($this instanceof ArrayHydrator) {
-                    $type = "ArrayHydrator";
+                    $type = 'ArrayHydrator';
                 } elseif ($this instanceof ScalarHydrator) {
-                    $type = "ScalarHydrator";
+                    $type = 'ScalarHydrator';
                 } elseif ($this instanceof SimpleObjectHydrator) {
-                    $type = "SimpleObjectHydrator";
+                    $type = 'SimpleObjectHydrator';
                 } elseif ($this instanceof SingleScalarHydrator) {
-                    $type = "SingleScalarHydrator";
+                    $type = 'SingleScalarHydrator';
                 }
 
                 $logger->start($type);
@@ -57,7 +54,6 @@
             $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
 
             if ($logger) {
-
                 $logger->stop(sizeof($result), $resultSetMapping->getAliasMap());
             }
 

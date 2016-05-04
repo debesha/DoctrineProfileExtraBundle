@@ -1,8 +1,8 @@
 <?php
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    /**
+/**
      * Add methods to operate with hydration logger
      *
      * For the full copyright and license information, please view the LICENSE
@@ -10,10 +10,8 @@
      *
      * @author Dmytro Malyshenko <dmitry@malyshenko.com>
      */
-
     class LoggingConfiguration extends \Doctrine\ORM\Configuration
     {
-
         public function __construct()
         {
             $hydrationLogger = new HydrationLogger();
@@ -35,8 +33,6 @@
          * Sets the hydration logger.
          *
          * @param HydrationLogger $ns
-         *
-         * @return void
          */
         public function setHydrationLogger(HydrationLogger $logger)
         {

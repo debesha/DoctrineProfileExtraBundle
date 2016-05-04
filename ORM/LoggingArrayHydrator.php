@@ -11,12 +11,11 @@
      * Time: 12:50
      */
 
-    namespace Debesha\DoctrineProfileExtraBundle\ORM;
+namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-    use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
+use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
 
     class LoggingArrayHydrator extends ArrayHydrator
     {
-
         use LoggingHydratorTrait;
     }

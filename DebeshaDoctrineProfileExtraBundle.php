@@ -1,10 +1,9 @@
 <?php
 
-    namespace Debesha\DoctrineProfileExtraBundle;
+namespace Debesha\DoctrineProfileExtraBundle;
 
-    use Symfony\Component\HttpKernel\Bundle\Bundle;
+use Symfony\Component\HttpKernel\Bundle\Bundle;
 
     class DebeshaDoctrineProfileExtraBundle extends Bundle
     {
-
     }

@@ -11,10 +11,9 @@
      * file that was distributed with this source code.
      */
 
-    namespace Debesha\DoctrineProfileExtraBundle\DataCollector;
+namespace Debesha\DoctrineProfileExtraBundle\DataCollector;
 
-    use Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger;
-    use Debesha\DoctrineProfileExtraBundle\ORM\LoggingConfiguration;
+use Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger;
     use Doctrine\ORM\EntityManager;
     use Symfony\Component\HttpFoundation\Request;
     use Symfony\Component\HttpFoundation\Response;
@@ -22,21 +21,18 @@
 
     class HydrationDataCollector extends DataCollector
     {
-
         /**
          * @var HydrationLogger
          */
-        private $hydrationLogger = array ();
+        private $hydrationLogger = [];
 
         public function __construct(EntityManager $manager)
         {
-
             $this->hydrationLogger = $manager->getConfiguration()->getHydrationLogger();
         }
 
         public function collect(Request $request, Response $response, \Exception $exception = null)
         {
-
             $this->data['hydrations'] = $this->hydrationLogger->hydrations;
         }
 
