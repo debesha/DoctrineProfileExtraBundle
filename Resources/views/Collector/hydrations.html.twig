@@ -33,10 +33,10 @@
 {% block panel %}
     {% if 'explain' == page %}
         {{ render(controller('DoctrineBundle:Profiler:explain', {
-        'token': token,
-        'panel': 'db',
-        'connectionName': app.request.query.get('connection'),
-        'query': app.request.query.get('query')
+            'token': token,
+            'panel': 'db',
+            'connectionName': app.request.query.get('connection'),
+            'query': app.request.query.get('query')
         })) }}
     {% else %}
         <div>
@@ -57,7 +57,6 @@
 
 {% block hydrations %}
     <h2>Hydrations</h2>
-
 
     {% if collector.hydrations is empty %}
         <p>
@@ -111,11 +110,11 @@
                 "use strict";
 
                 var direction = parseInt(header.getAttribute('data-sort-direction')) || 1,
-                        items = [],
-                        target = document.getElementById(targetId),
-                        rows = target.children,
-                        headers = header.parentElement.children,
-                        i;
+                    items = [],
+                    target = document.getElementById(targetId),
+                    rows = target.children,
+                    headers = header.parentElement.children,
+                    i;
 
                 for (i = 0; i < rows.length; ++i) {
                     items.push(rows[i]);
@@ -146,4 +145,4 @@
 
     {% endif %}
 
-{% endblock hydrations %}
+{% endblock %}
