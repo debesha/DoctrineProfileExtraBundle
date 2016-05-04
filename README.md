@@ -2,7 +2,7 @@
 
 Bundle to get information about doctrine hydration performance
 
-## Purpose 
+## Purpose
 
 Adds a section to web profile which lists all doctrine hydrations performed during generation of response.
 
@@ -10,19 +10,23 @@ Adds a section to web profile which lists all doctrine hydrations performed duri
 
 Add this in your `composer.json`
 
-    "require-dev": {
-        [...]
-        "debesha/doctrine-hydration-profiler-bundle" : "~1.0@dev",
-    },
+```php
+"require-dev": {
+    [...]
+    "debesha/doctrine-hydration-profiler-bundle" : "~1.0@dev",
+},
+```
 
 Then run `php composer.phar update `
 
 Next step is to register the bundle in AppKernel (`app/AppKernel.php`)
 
-    if (in_array($this->getEnvironment(), array('dev', 'test'))) {
-        [...]
-        $bundles[] = new Debesha\DoctrineProfileExtraBundle\DebeshaDoctrineProfileExtraBundle();
-    }
+```php
+if (in_array($this->getEnvironment(), array('dev', 'test'))) {
+    [...]
+    $bundles[] = new Debesha\DoctrineProfileExtraBundle\DebeshaDoctrineProfileExtraBundle();
+}
+```
 
 **Attention! The bundle MUST be included AFTER DoctrineBundle.**
 
@@ -30,7 +34,7 @@ That's it.
 
 ## Screenshots
 
-Your profile gets a new section where you may get an information about how fast was hydrations made and 
+Your profile gets a new section where you may get an information about how fast was hydrations made and
 how many entities was hydrated.
 
 ![Screenshot](http://i.imgur.com/GsvkIIN.png)
