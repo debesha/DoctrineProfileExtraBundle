@@ -65,4 +65,13 @@ class HydrationDataCollector extends DataCollector
     {
         return 'hydrations';
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    public function reset()
+    {
+        $this->data = [];
+        $this->hydrationLogger->hydrations = 0;
+    }
 }
