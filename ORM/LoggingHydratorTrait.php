@@ -53,7 +53,9 @@ trait LoggingHydratorTrait
         $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
 
         if ($logger) {
-            $logger->stop(sizeof($result), $resultSetMapping->getAliasMap());
+            if (is_array($result) || $result instanceof Countable) {
+                $logger->stop(sizeof($result), $resultSetMapping->getAliasMap());
+            }
         }
 
         return $result;
