@@ -15,7 +15,7 @@
         <service id="debesha.doctrine_extra_profiler.data_collector"
                  class="Debesha\DoctrineProfileExtraBundle\DataCollector\HydrationDataCollector" public="false">
             <argument type="service" id="doctrine.orm.entity_manager"/>
-            <tag name="data_collector" template="DebeshaDoctrineProfileExtraBundle:Collector:hydrations.html.twig"
+            <tag name="data_collector" template="@DebeshaDoctrineProfileExtra/Collector/hydrations.html.twig"
                  id="hydrations"/>
         </service>
     </services>
