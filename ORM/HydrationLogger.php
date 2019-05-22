@@ -2,8 +2,6 @@
 
 namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-use Doctrine\ORM\EntityManager;
-
 /**
  * Collects information about performed hydrations
  *
@@ -61,7 +59,7 @@ class HydrationLogger
      * Marks a hydration as stopped. Number of hydrated entities and alias map is
      * passed to method.
      *
-     * @param int   $resultNum
+     * @param int $resultNum
      * @param array $aliasMap
      */
     public function stop($resultNum, $aliasMap)
