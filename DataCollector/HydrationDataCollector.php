@@ -14,7 +14,7 @@
 namespace Debesha\DoctrineProfileExtraBundle\DataCollector;
 
 use Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
@@ -26,7 +26,7 @@ class HydrationDataCollector extends DataCollector
      */
     private $hydrationLogger = [];
 
-    public function __construct(EntityManager $manager)
+    public function __construct(EntityManagerInterface $manager)
     {
         $this->hydrationLogger = $manager->getConfiguration()->getHydrationLogger();
     }
