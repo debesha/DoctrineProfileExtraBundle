@@ -72,6 +72,7 @@ class HydrationDataCollector extends DataCollector
     public function reset()
     {
         $this->data = [];
-        $this->hydrationLogger->hydrations = 0;
+        $this->hydrationLogger->hydrations = [];
+        $this->hydrationLogger->currentHydration = 0;
     }
 }
