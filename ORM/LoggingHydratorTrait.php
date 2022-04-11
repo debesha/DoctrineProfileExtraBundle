@@ -13,6 +13,7 @@
 
 namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
+use Countable;
 use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
 use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
 use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
@@ -24,7 +25,7 @@ trait LoggingHydratorTrait
     /**
      * Hydrates all rows returned by the passed statement instance at once.
      *
-     * @param \Doctrine\DBAL\Driver\Statement      $stmt
+     * @param \Doctrine\DBAL\Result $stmt
      * @param \Doctrine\ORM\Query\ResultSetMapping $resultSetMapping
      * @param array                                $hints
      *
