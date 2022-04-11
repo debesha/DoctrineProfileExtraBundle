@@ -51,7 +51,7 @@ class LoggingEntityManager extends EntityManager
     }
 
     /**
-     * @return LoggingConfiguration
+     * @return Configuration
      */
     public function getConfiguration()
     {
@@ -81,7 +81,7 @@ class LoggingEntityManager extends EntityManager
                 break;
 
             default:
-                throw new \InvalidArgumentException('Invalid argument: '.$conn);
+                throw new \InvalidArgumentException('Invalid argument');
         }
 
         return new self($conn, $config, $conn->getEventManager());
