@@ -20,7 +20,7 @@ class LoggingConfiguration extends \Doctrine\ORM\Configuration
     /**
      * Gets the hydration logger.
      *
-     * @return HydrationLogger
+     * @return HydrationLogger|null
      */
     public function getHydrationLogger()
     {
@@ -33,6 +33,8 @@ class LoggingConfiguration extends \Doctrine\ORM\Configuration
      * Sets the hydration logger.
      *
      * @param HydrationLogger $ns
+     *
+     * @return void
      */
     public function setHydrationLogger(HydrationLogger $logger)
     {
