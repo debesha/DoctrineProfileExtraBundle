@@ -15,7 +15,7 @@ use Symfony\Component\DependencyInjection\Loader;
 class DebeshaDoctrineProfileExtraExtension extends Extension
 {
     /**
-     * {@inheritdoc}
+     * @return void
      */
     public function load(array $configs, ContainerBuilder $container)
     {

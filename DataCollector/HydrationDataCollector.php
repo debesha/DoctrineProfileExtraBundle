@@ -24,13 +24,16 @@ class HydrationDataCollector extends DataCollector
     /**
      * @var HydrationLogger
      */
-    private $hydrationLogger = [];
+    private $hydrationLogger;
 
     public function __construct(EntityManagerInterface $manager)
     {
         $this->hydrationLogger = $manager->getConfiguration()->getHydrationLogger();
     }
 
+    /**
+     * @return void
+     */
     public function collect(Request $request, Response $response, \Throwable $exception = null)
     {
         $this->data['hydrations'] = $this->hydrationLogger->hydrations;
@@ -59,7 +62,7 @@ class HydrationDataCollector extends DataCollector
     }
 
     /**
-     * {@inheritdoc}
+     * @return string
      */
     public function getName()
     {
@@ -67,7 +70,7 @@ class HydrationDataCollector extends DataCollector
     }
 
     /**
-     * {@inheritdoc}
+     * @return void
      */
     public function reset()
     {

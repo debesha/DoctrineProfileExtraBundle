@@ -61,6 +61,8 @@ class HydrationLogger
      *
      * @param int $resultNum
      * @param array $aliasMap
+     *
+     * @return void
      */
     public function stop($resultNum, $aliasMap)
     {
