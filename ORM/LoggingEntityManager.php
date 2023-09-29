@@ -22,13 +22,14 @@ use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Doctrine\DBAL\Connection;
+use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 
 class LoggingEntityManager extends EntityManager
 {
     /**
      * {@inheritdoc}
      */
-    public function newHydrator($hydrationMode)
+    public function newHydrator($hydrationMode): AbstractHydrator
     {
         switch ($hydrationMode) {
             case Query::HYDRATE_OBJECT:
