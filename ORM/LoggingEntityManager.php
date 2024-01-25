@@ -18,13 +18,13 @@ namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
 use Doctrine\Common\EventManager;
 use Doctrine\ORM\Configuration;
-use Doctrine\ORM\EntityManagerInterface;
+use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
 use Doctrine\ORM\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 
-class LoggingEntityManager extends EntityManagerInterface
+class LoggingEntityManager extends EntityManager
 {
     /**
      * {@inheritdoc}
@@ -62,7 +62,7 @@ class LoggingEntityManager extends EntityManagerInterface
     /**
      * {@inheritdoc}
      */
-    public static function create($conn, Configuration $config, EventManager $eventManager = null): EntityManagerInterface
+    public static function create($conn, Configuration $config, EventManager $eventManager = null): EntityManager
     {
         if (!$config->getMetadataDriverImpl()) {
             throw ORMException::missingMappingDriverImpl();
