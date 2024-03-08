@@ -8,13 +8,8 @@ Adds a section to web profile which lists all doctrine hydrations performed duri
 
 ## Installation
 
-Add this in your `composer.json`
-
-```php
-"require-dev": {
-    [...]
-    "debesha/doctrine-hydration-profiler-bundle" : "~1.0@dev",
-},
+```sh
+composer require "debesha/doctrine-hydration-profiler-bundle"
 ```
 
 Then run `php composer.phar update `

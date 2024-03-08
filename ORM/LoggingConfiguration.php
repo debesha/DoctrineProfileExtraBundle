@@ -17,26 +17,13 @@ class LoggingConfiguration extends \Doctrine\ORM\Configuration
         $hydrationLogger = new HydrationLogger();
         $this->setHydrationLogger($hydrationLogger);
     }
-    /**
-     * Gets the hydration logger.
-     *
-     * @return HydrationLogger|null
-     */
-    public function getHydrationLogger()
+
+    public function getHydrationLogger(): ?HydrationLogger
     {
-        return isset($this->_attributes['hydrationLogger'])
-            ? $this->_attributes['hydrationLogger']
-            : null;
+        return $this->_attributes['hydrationLogger'] ?? null;
     }
 
-    /**
-     * Sets the hydration logger.
-     *
-     * @param HydrationLogger $ns
-     *
-     * @return void
-     */
-    public function setHydrationLogger(HydrationLogger $logger)
+    public function setHydrationLogger(HydrationLogger $logger): void
     {
         $this->_attributes['hydrationLogger'] = $logger;
     }

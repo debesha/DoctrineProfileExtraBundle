@@ -14,10 +14,7 @@ use Symfony\Component\DependencyInjection\Loader;
  */
 class DebeshaDoctrineProfileExtraExtension extends Extension
 {
-    /**
-     * @return void
-     */
-    public function load(array $configs, ContainerBuilder $container)
+    public function load(array $configs, ContainerBuilder $container): void
     {
         if (!$container->hasParameter('doctrine.orm.entity_manager.class')) {
             throw new \InvalidArgumentException('You must include DoctrineBundle/DoctrineBundle before DebeshaDoctrineProfileExtraBundle in your AppKerner.php');
