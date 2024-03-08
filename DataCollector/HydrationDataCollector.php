@@ -21,20 +21,14 @@ use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 class HydrationDataCollector extends DataCollector
 {
-    /**
-     * @var HydrationLogger
-     */
-    private $hydrationLogger;
+    private HydrationLogger $hydrationLogger;
 
     public function __construct(EntityManagerInterface $manager)
     {
         $this->hydrationLogger = $manager->getConfiguration()->getHydrationLogger();
     }
 
-    /**
-     * @return void
-     */
-    public function collect(Request $request, Response $response, \Throwable $exception = null)
+    public function collect(Request $request, Response $response, \Throwable $exception = null): void
     {
         $this->data['hydrations'] = $this->hydrationLogger->hydrations;
     }
@@ -44,12 +38,12 @@ class HydrationDataCollector extends DataCollector
         return $this->data['hydrations'];
     }
 
-    public function getHydrationsCount()
+    public function getHydrationsCount(): int
     {
         return count($this->data['hydrations']);
     }
 
-    public function getTime()
+    public function getTime(): int
     {
         $time = 0;
         foreach ($this->data['hydrations'] as $hydration) {
@@ -61,18 +55,12 @@ class HydrationDataCollector extends DataCollector
         return $time;
     }
 
-    /**
-     * @return string
-     */
-    public function getName()
+    public function getName(): string
     {
         return 'hydrations';
     }
 
-    /**
-     * @return void
-     */
-    public function reset()
+    public function reset(): void
     {
         $this->data = [];
         $this->hydrationLogger->hydrations = [];

@@ -19,34 +19,24 @@ class HydrationLogger
 {
     /**
      * Executed hydrations
-     *
-     * @var array
      */
-    public $hydrations = [];
+    public array $hydrations = [];
 
     /**
      * If Debug Stack is enabled (log queries) or not.
-     *
-     * @var bool
      */
-    public $enabled = true;
+    public bool $enabled = true;
 
-    /**
-     * @var float|null
-     */
-    public $start = null;
+    public ?float $start = null;
 
-    /**
-     * @var int
-     */
-    public $currentHydration = 0;
+    public int $currentHydration = 0;
 
     /**
      * Marks a hydration as started. Timing is started
      *
      * @param string $type type of hydration
      */
-    public function start($type)
+    public function start(string $type): void
     {
         if ($this->enabled) {
             $this->start = microtime(true);
@@ -58,13 +48,8 @@ class HydrationLogger
     /**
      * Marks a hydration as stopped. Number of hydrated entities and alias map is
      * passed to method.
-     *
-     * @param int $resultNum
-     * @param array $aliasMap
-     *
-     * @return void
      */
-    public function stop($resultNum, $aliasMap)
+    public function stop(int $resultNum, array $aliasMap): void
     {
         if ($this->enabled) {
             $this->hydrations[$this->currentHydration]['executionMS'] = microtime(true) - $this->start;

@@ -17,10 +17,11 @@
 namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
 use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Exception;
+use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\ORMException;
-use Doctrine\ORM\Query;
 use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 
@@ -31,52 +32,36 @@ class LoggingEntityManager extends EntityManager
      */
     public function newHydrator($hydrationMode): AbstractHydrator
     {
-        switch ($hydrationMode) {
-            case Query::HYDRATE_OBJECT:
-                return new LoggingObjectHydrator($this);
-
-            case Query::HYDRATE_ARRAY:
-                return new LoggingArrayHydrator($this);
-
-            case Query::HYDRATE_SCALAR:
-                return new LoggingScalarHydrator($this);
-
-            case Query::HYDRATE_SINGLE_SCALAR:
-                return new LoggingSingleScalarHydrator($this);
-
-            case Query::HYDRATE_SIMPLEOBJECT:
-                return new LoggingSimpleObjectHydrator($this);
-            default:
-                return parent::newHydrator($hydrationMode);
-        }
-    }
-
-    /**
-     * @return Configuration
-     */
-    public function getConfiguration()
-    {
-        return parent::getConfiguration();
+        return match ($hydrationMode) {
+            AbstractQuery::HYDRATE_OBJECT => new LoggingObjectHydrator($this),
+            AbstractQuery::HYDRATE_ARRAY => new LoggingArrayHydrator($this),
+            AbstractQuery::HYDRATE_SCALAR => new LoggingScalarHydrator($this),
+            AbstractQuery::HYDRATE_SINGLE_SCALAR => new LoggingSingleScalarHydrator($this),
+            AbstractQuery::HYDRATE_SIMPLEOBJECT => new LoggingSimpleObjectHydrator($this),
+            default => parent::newHydrator($hydrationMode),
+        };
     }
 
     /**
      * {@inheritdoc}
+     *
+     * @throws Exception|ORMException
      */
-    public static function create($conn, Configuration $config, EventManager $eventManager = null): EntityManager
+    public static function create($connection, Configuration $config, EventManager $eventManager = null): EntityManager
     {
         if (!$config->getMetadataDriverImpl()) {
             throw ORMException::missingMappingDriverImpl();
         }
 
         switch (true) {
-            case is_array($conn):
-                $conn = \Doctrine\DBAL\DriverManager::getConnection(
-                    $conn, $config, ($eventManager ?: new EventManager())
+            case is_array($connection):
+                $connection = \Doctrine\DBAL\DriverManager::getConnection(
+                    $connection, $config, ($eventManager ?: new EventManager())
                 );
                 break;
 
-            case $conn instanceof Connection:
-                if ($eventManager !== null && $conn->getEventManager() !== $eventManager) {
+            case $connection instanceof Connection:
+                if ($eventManager !== null && $connection->getEventManager() !== $eventManager) {
                     throw ORMException::mismatchedEventManager();
                 }
                 break;
@@ -85,6 +70,6 @@ class LoggingEntityManager extends EntityManager
                 throw new \InvalidArgumentException('Invalid argument');
         }
 
-        return new self($conn, $config, $conn->getEventManager());
+        return new self($connection, $config, $connection->getEventManager());
     }
 }
