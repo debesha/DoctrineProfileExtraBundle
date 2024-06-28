@@ -13,24 +13,40 @@
 
 namespace Debesha\DoctrineProfileExtraBundle\DataCollector;
 
-use Debesha\DoctrineProfileExtraBundle\ORM\HydrationLogger;
-use Doctrine\ORM\EntityManagerInterface;
+use Debesha\DoctrineProfileExtraBundle\ORM\LoggingConfiguration;
+use Debesha\DoctrineProfileExtraBundle\ORM\LoggingEntityManager;
+use Doctrine\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ObjectManager;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\DataCollector\DataCollector;
 
 class HydrationDataCollector extends DataCollector
 {
-    private HydrationLogger $hydrationLogger;
-
-    public function __construct(EntityManagerInterface $manager)
-    {
-        $this->hydrationLogger = $manager->getConfiguration()->getHydrationLogger();
+    public function __construct(
+        private ManagerRegistry $managerRegistry,
+    ) {
     }
 
     public function collect(Request $request, Response $response, \Throwable $exception = null): void
     {
-        $this->data['hydrations'] = $this->hydrationLogger->hydrations;
+        $hydrationsPerEntityManager = array_map(
+            static function (ObjectManager $manager): array {
+                if (!$manager instanceof LoggingEntityManager) {
+                    return [];
+                }
+
+                $configuration = $manager->getConfiguration();
+                if (!$configuration instanceof LoggingConfiguration) {
+                    return [];
+                }
+
+                return $configuration->getHydrationLogger()->hydrations;
+            },
+            $this->managerRegistry->getManagers(),
+        );
+
+        $this->data['hydrations'] = array_merge(...array_values($hydrationsPerEntityManager));
     }
 
     public function getHydrations()
@@ -43,7 +59,7 @@ class HydrationDataCollector extends DataCollector
         return count($this->data['hydrations']);
     }
 
-    public function getTime(): int
+    public function getTime(): float
     {
         $time = 0;
         foreach ($this->data['hydrations'] as $hydration) {
@@ -63,7 +79,5 @@ class HydrationDataCollector extends DataCollector
     public function reset(): void
     {
         $this->data = [];
-        $this->hydrationLogger->hydrations = [];
-        $this->hydrationLogger->currentHydration = 0;
     }
 }
