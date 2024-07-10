@@ -38,7 +38,7 @@ trait LoggingHydratorTrait
         // For ORM 2.0 and 3.0 compatibility
         $entityManager = isset($this->em) ? $this->em : $this->_em;
 
-        if ($logger = $this->em->getConfiguration()->getHydrationLogger()) {
+        if ($logger = $entityManager->getConfiguration()->getHydrationLogger()) {
             $type = null;
 
             if ($this instanceof ObjectHydrator) {
