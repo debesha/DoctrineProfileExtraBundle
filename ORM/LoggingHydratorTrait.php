@@ -13,8 +13,8 @@
 
 namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
-use Countable;
 use Doctrine\DBAL\Result;
+use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
 use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
 use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
 use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
@@ -22,48 +22,94 @@ use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
 use Doctrine\ORM\Internal\Hydration\SingleScalarHydrator;
 use Doctrine\ORM\Query\ResultSetMapping;
 
-trait LoggingHydratorTrait
-{
-    /**
-     * Hydrates all rows returned by the passed statement instance at once.
-     *
-     * @param Result|ResultStatement $stmt
-     * @param ResultSetMapping       $resultSetMapping
-     * @psalm-param array<string, string> $hints
-     *
-     * @return mixed[]
-     */
-    public function hydrateAll(Result $stmt, ResultSetMapping $resultSetMapping, array $hints = []): mixed
+if (property_exists(AbstractHydrator::class, '_em')) {
+    // ORM 2
+    trait LoggingHydratorTrait
     {
-        // For ORM 2.0 and 3.0 compatibility
-        $entityManager = isset($this->em) ? $this->em : $this->_em;
+        /**
+         * Hydrates all rows returned by the passed statement instance at once.
+         *
+         * @param Result|ResultStatement $stmt
+         * @param ResultSetMapping $resultSetMapping
+         * @psalm-param array<string, string> $hints
+         *
+         * @return mixed[]
+         */
+        public function hydrateAll(/* Result */ $stmt, /*ResultSetMapping*/ $resultSetMapping, /*array*/ $hints = [])/*: Countable|array*/
+        {
+            if ($logger = $this->_em->getConfiguration()->getHydrationLogger()) {
+                $type = null;
 
-        if ($logger = $entityManager->getConfiguration()->getHydrationLogger()) {
-            $type = null;
+                if ($this instanceof ObjectHydrator) {
+                    $type = 'ObjectHydrator';
+                } elseif ($this instanceof ArrayHydrator) {
+                    $type = 'ArrayHydrator';
+                } elseif ($this instanceof ScalarHydrator) {
+                    $type = 'ScalarHydrator';
+                } elseif ($this instanceof SimpleObjectHydrator) {
+                    $type = 'SimpleObjectHydrator';
+                } elseif ($this instanceof SingleScalarHydrator) {
+                    $type = 'SingleScalarHydrator';
+                }
 
-            if ($this instanceof ObjectHydrator) {
-                $type = 'ObjectHydrator';
-            } elseif ($this instanceof ArrayHydrator) {
-                $type = 'ArrayHydrator';
-            } elseif ($this instanceof ScalarHydrator) {
-                $type = 'ScalarHydrator';
-            } elseif ($this instanceof SimpleObjectHydrator) {
-                $type = 'SimpleObjectHydrator';
-            } elseif ($this instanceof SingleScalarHydrator) {
-                $type = 'SingleScalarHydrator';
+                $logger->start($type);
             }
 
-            $logger->start($type);
-        }
+            $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
 
-        $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
-
-        if ($logger) {
-            if (is_countable($result)) {
-                $logger->stop(count($result), $resultSetMapping->getAliasMap());
+            if ($logger) {
+                if (is_countable($result)) {
+                    $logger->stop(count($result), $resultSetMapping->getAliasMap());
+                }
             }
-        }
 
-        return $result;
+            return $result;
+        }
+    }
+} else {
+    // ORM 3
+    trait LoggingHydratorTrait
+    {
+        /**
+         * Hydrates all rows returned by the passed statement instance at once.
+         *
+         * @param Result|ResultStatement $stmt
+         * @param ResultSetMapping $resultSetMapping
+         * @psalm-param array<string, string> $hints
+         *
+         * @return mixed[]
+         */
+        public function hydrateAll(Result $stmt, ResultSetMapping $resultSetMapping, array $hints = []): mixed
+        {
+            // For ORM 2.0 and 3.0 compatibility
+            if ($logger = $this->em->getConfiguration()->getHydrationLogger()) {
+                $type = null;
+
+                if ($this instanceof ObjectHydrator) {
+                    $type = 'ObjectHydrator';
+                } elseif ($this instanceof ArrayHydrator) {
+                    $type = 'ArrayHydrator';
+                } elseif ($this instanceof ScalarHydrator) {
+                    $type = 'ScalarHydrator';
+                } elseif ($this instanceof SimpleObjectHydrator) {
+                    $type = 'SimpleObjectHydrator';
+                } elseif ($this instanceof SingleScalarHydrator) {
+                    $type = 'SingleScalarHydrator';
+                }
+
+                $logger->start($type);
+            }
+
+            $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
+
+            if ($logger) {
+                if (is_countable($result)) {
+                    $logger->stop(count($result), $resultSetMapping->getAliasMap());
+                }
+            }
+
+            return $result;
+        }
     }
 }
+

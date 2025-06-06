@@ -17,7 +17,7 @@ class DebeshaDoctrineProfileExtraExtension extends Extension
     public function load(array $configs, ContainerBuilder $container): void
     {
         if (!$container->hasParameter('doctrine.orm.entity_manager.class')) {
-            throw new \InvalidArgumentException('You must include DoctrineBundle/DoctrineBundle before DebeshaDoctrineProfileExtraBundle in your AppKerner.php');
+            throw new \InvalidArgumentException('You must include DoctrineBundle/DoctrineBundle before DebeshaDoctrineProfileExtraBundle in your AppKernel.php');
         }
 
         $configuration = new Configuration();

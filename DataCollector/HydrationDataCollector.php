@@ -26,6 +26,7 @@ class HydrationDataCollector extends DataCollector
     public function __construct(
         private ManagerRegistry $managerRegistry,
     ) {
+        $this->data['hydrations'] = [];
     }
 
     public function collect(Request $request, Response $response, \Throwable $exception = null): void
@@ -78,6 +79,6 @@ class HydrationDataCollector extends DataCollector
 
     public function reset(): void
     {
-        $this->data = [];
+        $this->data = ['hydrations' => []];
     }
 }
