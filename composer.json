@@ -25,7 +25,7 @@
         "doctrine/doctrine-bundle": "^2.11",
         "symfony/framework-bundle": "^5.4|^6.0|^7.0",
         "symfony/twig-bundle": "^5.4|^6.0|^7.0",
-        "twig/twig": "^2.15.6|^3.8"
+        "twig/twig": "~3.11.2"
     },
     "require-dev": {
         "roave/security-advisories": "dev-latest"
