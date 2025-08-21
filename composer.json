@@ -28,6 +28,7 @@
         "twig/twig": "~3.11.2"
     },
     "require-dev": {
+        "phpunit/phpunit": "^10.0",
         "roave/security-advisories": "dev-latest"
     },
     "autoload": {
@@ -36,6 +37,7 @@
         }
     },
     "scripts": {
+        "test-unit": "vendor/bin/phpunit --testsuite=unit",
         "test-integration-symfony73-orm2": [
             "cd tests/integration/symfony73 && rm -rf var/cache",
             "cd tests/integration/symfony73 && env COMPOSER=composer-orm2.json composer install",
@@ -47,6 +49,7 @@
             "cd tests/integration/symfony73 && vendor/bin/phpunit"
         ],
         "test": [
+            "@test-unit",
             "@test-integration-symfony73-orm2",
             "@test-integration-symfony73-orm3"
         ]
