@@ -1,8 +1,9 @@
 <?php
+
 /**
  * Redefines method hydrateAll for all hydrators.
  * In new method start() and end() of logger are called, if logger is set.
- * Between these calls parent' method is called
+ * Between these calls parent' method is called.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
@@ -30,12 +31,13 @@ if (property_exists(AbstractHydrator::class, '_em')) {
          * Hydrates all rows returned by the passed statement instance at once.
          *
          * @param Result|ResultStatement $stmt
-         * @param ResultSetMapping $resultSetMapping
+         * @param ResultSetMapping       $resultSetMapping
+         *
          * @psalm-param array<string, string> $hints
          *
          * @return mixed[]
          */
-        public function hydrateAll(/* Result */ $stmt, /*ResultSetMapping*/ $resultSetMapping, /*array*/ $hints = [])/*: Countable|array*/
+        public function hydrateAll(/* Result */ $stmt, /* ResultSetMapping */ $resultSetMapping, /* array */ $hints = [])/* : Countable|array */
         {
             if ($logger = $this->_em->getConfiguration()->getHydrationLogger()) {
                 $type = null;
@@ -59,7 +61,7 @@ if (property_exists(AbstractHydrator::class, '_em')) {
 
             if ($logger) {
                 if (is_countable($result)) {
-                    $logger->stop(count($result), $resultSetMapping->getAliasMap());
+                    $logger->stop(\count($result), $resultSetMapping->getAliasMap());
                 }
             }
 
@@ -74,7 +76,7 @@ if (property_exists(AbstractHydrator::class, '_em')) {
          * Hydrates all rows returned by the passed statement instance at once.
          *
          * @param Result|ResultStatement $stmt
-         * @param ResultSetMapping $resultSetMapping
+         *
          * @psalm-param array<string, string> $hints
          *
          * @return mixed[]
@@ -104,7 +106,7 @@ if (property_exists(AbstractHydrator::class, '_em')) {
 
             if ($logger) {
                 if (is_countable($result)) {
-                    $logger->stop(count($result), $resultSetMapping->getAliasMap());
+                    $logger->stop(\count($result), $resultSetMapping->getAliasMap());
                 }
             }
 
@@ -112,4 +114,3 @@ if (property_exists(AbstractHydrator::class, '_em')) {
         }
     }
 }
-

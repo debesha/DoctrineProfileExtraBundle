@@ -5,8 +5,8 @@ namespace Debesha\DoctrineProfileExtraBundle\Tests\Unit\ORM;
 use Debesha\DoctrineProfileExtraBundle\ORM\LoggingSimpleObjectHydrator;
 use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 
 class LoggingSimpleObjectHydratorTest extends TestCase
 {
@@ -28,7 +28,7 @@ class LoggingSimpleObjectHydratorTest extends TestCase
     {
         $reflection = new \ReflectionClass($this->hydrator);
         $traits = $reflection->getTraitNames();
-        
+
         $this->assertContains(
             'Debesha\DoctrineProfileExtraBundle\ORM\LoggingHydratorTrait',
             $traits,
@@ -39,10 +39,10 @@ class LoggingSimpleObjectHydratorTest extends TestCase
     public function testClassStructure(): void
     {
         $reflection = new \ReflectionClass($this->hydrator);
-        
+
         // Check that the class has the expected methods
         $this->assertTrue($reflection->hasMethod('hydrateAll'));
-        
+
         // Check that the method is public
         $method = $reflection->getMethod('hydrateAll');
         $this->assertTrue($method->isPublic());

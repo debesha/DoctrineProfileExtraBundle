@@ -3,7 +3,7 @@
 namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
 /**
- * Add methods to operate with hydration logger
+ * Add methods to operate with hydration logger.
  *
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.

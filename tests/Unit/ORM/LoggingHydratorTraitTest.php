@@ -15,7 +15,7 @@ class LoggingHydratorTraitTest extends TestCase
     public function testTraitCanBeUsed(): void
     {
         // Test that the trait can be used in a class
-        $testClass = new class() {
+        $testClass = new class {
             use LoggingHydratorTrait;
         };
 
@@ -26,10 +26,10 @@ class LoggingHydratorTraitTest extends TestCase
     public function testTraitReflection(): void
     {
         $reflection = new \ReflectionClass(LoggingHydratorTrait::class);
-        
+
         // Check that the trait has the expected method
         $this->assertTrue($reflection->hasMethod('hydrateAll'));
-        
+
         // Check that the method is public
         $method = $reflection->getMethod('hydrateAll');
         $this->assertTrue($method->isPublic());

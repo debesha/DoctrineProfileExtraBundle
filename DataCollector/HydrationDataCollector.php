@@ -1,7 +1,8 @@
 <?php
+
 /**
  * Data collector takes information about performed hydrations from
- * injected hydrationLogger
+ * injected hydrationLogger.
  *
  * Author: Dmytry Malyshenko (dmitry@malyshenko.com)
  * Date: 16.07.2015
@@ -29,7 +30,7 @@ class HydrationDataCollector extends DataCollector
         $this->data['hydrations'] = [];
     }
 
-    public function collect(Request $request, Response $response, \Throwable $exception = null): void
+    public function collect(Request $request, Response $response, ?\Throwable $exception = null): void
     {
         $hydrationsPerEntityManager = array_map(
             static function (ObjectManager $manager): array {
@@ -57,7 +58,7 @@ class HydrationDataCollector extends DataCollector
 
     public function getHydrationsCount(): int
     {
-        return count($this->data['hydrations']);
+        return \count($this->data['hydrations']);
     }
 
     public function getTime(): float

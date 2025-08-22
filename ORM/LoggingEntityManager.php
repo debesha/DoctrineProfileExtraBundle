@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Extends Doctrine Entity Manager.
  * While creating hydrations returns extended hydrations, where methods hydrateAll() are
@@ -17,19 +18,16 @@
 namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
 use Doctrine\Common\EventManager;
+use Doctrine\DBAL\Connection;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
-use Doctrine\ORM\ORMException;
-use Doctrine\DBAL\Connection;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
+use Doctrine\ORM\ORMException;
 
 class LoggingEntityManager extends EntityManager
 {
-    /**
-     * {@inheritdoc}
-     */
     public function newHydrator($hydrationMode): AbstractHydrator
     {
         return match ($hydrationMode) {
@@ -43,25 +41,23 @@ class LoggingEntityManager extends EntityManager
     }
 
     /**
-     * {@inheritdoc}
-     *
      * @throws Exception|ORMException
      */
-    public static function create($connection, Configuration $config, EventManager $eventManager = null): EntityManager
+    public static function create($connection, Configuration $config, ?EventManager $eventManager = null): EntityManager
     {
         if (!$config->getMetadataDriverImpl()) {
             throw ORMException::missingMappingDriverImpl();
         }
 
         switch (true) {
-            case is_array($connection):
+            case \is_array($connection):
                 $connection = \Doctrine\DBAL\DriverManager::getConnection(
-                    $connection, $config, ($eventManager ?: new EventManager())
+                    $connection, $config, $eventManager ?: new EventManager()
                 );
                 break;
 
             case $connection instanceof Connection:
-                if ($eventManager !== null && $connection->getEventManager() !== $eventManager) {
+                if (null !== $eventManager && $connection->getEventManager() !== $eventManager) {
                     throw ORMException::mismatchedEventManager();
                 }
                 break;

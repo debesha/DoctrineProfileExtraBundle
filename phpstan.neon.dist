@@ -1,0 +1,16 @@
+parameters:
+  level: 8
+  paths:
+    - .
+  excludePaths:
+    - vendor
+    - var
+    - tests/integration
+  checkMissingIterableValueType: true
+  checkGenericClassInNonGenericObjectType: true
+  symfony:
+    container_xml_path: null
+  doctrine:
+    objectManagerLoader: null
+
+

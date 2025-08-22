@@ -3,7 +3,7 @@
 namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
 /**
- * Collects information about performed hydrations
+ * Collects information about performed hydrations.
  *
  * This logger is used as a service to be injected to data collector.
  * Also it should be injected to Entity Configuration service, but it controlled by doctrine bundle.
@@ -18,7 +18,7 @@ namespace Debesha\DoctrineProfileExtraBundle\ORM;
 class HydrationLogger
 {
     /**
-     * Executed hydrations
+     * Executed hydrations.
      */
     public array $hydrations = [];
 
@@ -32,7 +32,7 @@ class HydrationLogger
     public int $currentHydration = 0;
 
     /**
-     * Marks a hydration as started. Timing is started
+     * Marks a hydration as started. Timing is started.
      *
      * @param string $type type of hydration
      */

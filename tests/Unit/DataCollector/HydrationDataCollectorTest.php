@@ -8,8 +8,8 @@ use Debesha\DoctrineProfileExtraBundle\ORM\LoggingConfiguration;
 use Debesha\DoctrineProfileExtraBundle\ORM\LoggingEntityManager;
 use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\Persistence\ObjectManager;
-use PHPUnit\Framework\TestCase;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -43,14 +43,14 @@ class HydrationDataCollectorTest extends TestCase
                 'type' => 'object',
                 'executionMS' => 0.5,
                 'resultNum' => 10,
-                'aliasMap' => ['e' => 'TestEntity']
+                'aliasMap' => ['e' => 'TestEntity'],
             ],
             [
                 'type' => 'array',
                 'executionMS' => 0.3,
                 'resultNum' => 5,
-                'aliasMap' => ['e' => 'TestEntity']
-            ]
+                'aliasMap' => ['e' => 'TestEntity'],
+            ],
         ];
 
         // Create mock logging configuration
@@ -73,7 +73,7 @@ class HydrationDataCollectorTest extends TestCase
             ->method('getManagers')
             ->willReturn([
                 'logging' => $loggingEntityManager,
-                'regular' => $regularEntityManager
+                'regular' => $regularEntityManager,
             ]);
 
         $this->collector->collect($this->request, $this->response);
@@ -102,7 +102,7 @@ class HydrationDataCollectorTest extends TestCase
     {
         // Create mock logging entity manager
         $loggingEntityManager = $this->createMock(LoggingEntityManager::class);
-        
+
         // But with non-logging configuration
         $regularConfiguration = $this->createMock(\Doctrine\ORM\Configuration::class);
         $loggingEntityManager->expects($this->any())
@@ -145,7 +145,7 @@ class HydrationDataCollectorTest extends TestCase
     public function testGetHydrations(): void
     {
         $testHydrations = [
-            ['type' => 'test', 'executionMS' => 0.1]
+            ['type' => 'test', 'executionMS' => 0.1],
         ];
 
         // Use reflection to set private data
@@ -162,7 +162,7 @@ class HydrationDataCollectorTest extends TestCase
         $testHydrations = [
             ['type' => 'test1'],
             ['type' => 'test2'],
-            ['type' => 'test3']
+            ['type' => 'test3'],
         ];
 
         // Use reflection to set private data
@@ -185,7 +185,7 @@ class HydrationDataCollectorTest extends TestCase
             ['type' => 'test1', 'executionMS' => 0.5],
             ['type' => 'test2', 'executionMS' => 0.3],
             ['type' => 'test3', 'executionMS' => 0.2],
-            ['type' => 'test4'] // Missing executionMS
+            ['type' => 'test4'], // Missing executionMS
         ];
 
         // Use reflection to set private data
@@ -201,7 +201,7 @@ class HydrationDataCollectorTest extends TestCase
     {
         $testHydrations = [
             ['type' => 'test1'],
-            ['type' => 'test2']
+            ['type' => 'test2'],
         ];
 
         // Use reflection to set private data
@@ -228,7 +228,7 @@ class HydrationDataCollectorTest extends TestCase
         // First, add some test data
         $testHydrations = [
             ['type' => 'test1', 'executionMS' => 0.1],
-            ['type' => 'test2', 'executionMS' => 0.2]
+            ['type' => 'test2', 'executionMS' => 0.2],
         ];
 
         // Use reflection to set private data
@@ -254,7 +254,7 @@ class HydrationDataCollectorTest extends TestCase
         // Create first hydration logger with test data
         $hydrationLogger1 = new HydrationLogger();
         $hydrationLogger1->hydrations = [
-            ['type' => 'object', 'executionMS' => 0.5]
+            ['type' => 'object', 'executionMS' => 0.5],
         ];
 
         $loggingConfiguration1 = $this->createMock(LoggingConfiguration::class);
@@ -270,7 +270,7 @@ class HydrationDataCollectorTest extends TestCase
         // Create second hydration logger with different test data
         $hydrationLogger2 = new HydrationLogger();
         $hydrationLogger2->hydrations = [
-            ['type' => 'array', 'executionMS' => 0.3]
+            ['type' => 'array', 'executionMS' => 0.3],
         ];
 
         $loggingConfiguration2 = $this->createMock(LoggingConfiguration::class);
@@ -288,7 +288,7 @@ class HydrationDataCollectorTest extends TestCase
             ->method('getManagers')
             ->willReturn([
                 'em1' => $loggingEntityManager1,
-                'em2' => $loggingEntityManager2
+                'em2' => $loggingEntityManager2,
             ]);
 
         $this->collector->collect($this->request, $this->response);
@@ -299,4 +299,4 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals('array', $hydrations[1]['type']);
         $this->assertEquals(0.8, $this->collector->getTime());
     }
-} 
+}
