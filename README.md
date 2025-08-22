@@ -1,5 +1,14 @@
 # DoctrineProfileExtraBundle
 
+[![Latest Stable Version](https://img.shields.io/packagist/v/debesha/doctrine-hydration-profiler-bundle.svg?style=flat-square)](https://packagist.org/packages/debesha/doctrine-hydration-profiler-bundle)
+[![PHP Version](https://img.shields.io/packagist/php-v/debesha/doctrine-hydration-profiler-bundle.svg?style=flat-square)](https://www.php.net/releases/)
+[![Symfony](https://img.shields.io/badge/Symfony-5.4%20|%206.x%20|%207.x-000000?logo=symfony&logoColor=white&style=flat-square)](https://symfony.com/releases)
+[![Doctrine ORM](https://img.shields.io/badge/Doctrine%20ORM-^2.19%20|%20^3.0-59666C?style=flat-square)](https://www.doctrine-project.org/projects/orm.html)
+[![License](https://img.shields.io/packagist/l/debesha/doctrine-hydration-profiler-bundle.svg?style=flat-square)](LICENSE)
+[![Downloads](https://img.shields.io/packagist/dt/debesha/doctrine-hydration-profiler-bundle.svg?style=flat-square)](https://packagist.org/packages/debesha/doctrine-hydration-profiler-bundle/stats)
+[![PHPStan](https://img.shields.io/badge/PHPStan-enabled-44B3E6?style=flat-square)](https://phpstan.org/)
+[![Code Style](https://img.shields.io/badge/Code%20Style-PHP%20CS%20Fixer-1C7ED6?style=flat-square)](https://cs.symfony.com/)
+
 Bundle to get information about doctrine hydration performance
 
 ## Purpose
