@@ -16,50 +16,40 @@ namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
 use Doctrine\DBAL\Result;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
-use Doctrine\ORM\Internal\Hydration\ArrayHydrator;
-use Doctrine\ORM\Internal\Hydration\ObjectHydrator;
-use Doctrine\ORM\Internal\Hydration\ScalarHydrator;
-use Doctrine\ORM\Internal\Hydration\SimpleObjectHydrator;
-use Doctrine\ORM\Internal\Hydration\SingleScalarHydrator;
 use Doctrine\ORM\Query\ResultSetMapping;
 
 if (property_exists(AbstractHydrator::class, '_em')) {
     // ORM 2
+    /**
+     * @phpstan-require-extends \Doctrine\ORM\Internal\Hydration\AbstractHydrator
+     *
+     * @property \Doctrine\ORM\EntityManagerInterface $_em
+     */
     trait LoggingHydratorTrait
     {
         /**
          * Hydrates all rows returned by the passed statement instance at once.
          *
-         * @param Result|ResultStatement $stmt
-         * @param ResultSetMapping       $resultSetMapping
+         * @param Result               $stmt
+         * @param ResultSetMapping     $resultSetMapping
+         * @param array<string, mixed> $hints
          *
-         * @psalm-param array<string, string> $hints
-         *
-         * @return mixed[]
+         * @phpstan-return mixed
          */
         public function hydrateAll(/* Result */ $stmt, /* ResultSetMapping */ $resultSetMapping, /* array */ $hints = [])/* : Countable|array */
         {
-            if ($logger = $this->_em->getConfiguration()->getHydrationLogger()) {
-                $type = null;
-
-                if ($this instanceof ObjectHydrator) {
-                    $type = 'ObjectHydrator';
-                } elseif ($this instanceof ArrayHydrator) {
-                    $type = 'ArrayHydrator';
-                } elseif ($this instanceof ScalarHydrator) {
-                    $type = 'ScalarHydrator';
-                } elseif ($this instanceof SimpleObjectHydrator) {
-                    $type = 'SimpleObjectHydrator';
-                } elseif ($this instanceof SingleScalarHydrator) {
-                    $type = 'SingleScalarHydrator';
-                }
-
+            // @phpstan-ignore-next-line Access through magic property on ORM2 hydrator
+            $logger = $this->_em?->getConfiguration()?->getHydrationLogger();
+            if ($logger) {
+                $shortName = (new \ReflectionClass($this))->getShortName();
+                $type = preg_replace('/^Logging/', '', $shortName) ?: $shortName;
                 $logger->start($type);
             }
 
+            // @phpstan-ignore-next-line parent::hydrateAll exists in real hydrator subclasses
             $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
 
-            if ($logger) {
+            if (isset($logger)) {
                 if (is_countable($result)) {
                     $logger->stop(\count($result), $resultSetMapping->getAliasMap());
                 }
@@ -70,41 +60,34 @@ if (property_exists(AbstractHydrator::class, '_em')) {
     }
 } else {
     // ORM 3
+    /**
+     * @phpstan-require-extends \Doctrine\ORM\Internal\Hydration\AbstractHydrator
+     *
+     * @property \Doctrine\ORM\EntityManagerInterface $em
+     */
     trait LoggingHydratorTrait
     {
         /**
          * Hydrates all rows returned by the passed statement instance at once.
          *
-         * @param Result|ResultStatement $stmt
-         *
          * @psalm-param array<string, string> $hints
          *
-         * @return mixed[]
+         * @phpstan-return mixed
          */
         public function hydrateAll(Result $stmt, ResultSetMapping $resultSetMapping, array $hints = []): mixed
         {
             // For ORM 2.0 and 3.0 compatibility
-            if ($logger = $this->em->getConfiguration()->getHydrationLogger()) {
-                $type = null;
-
-                if ($this instanceof ObjectHydrator) {
-                    $type = 'ObjectHydrator';
-                } elseif ($this instanceof ArrayHydrator) {
-                    $type = 'ArrayHydrator';
-                } elseif ($this instanceof ScalarHydrator) {
-                    $type = 'ScalarHydrator';
-                } elseif ($this instanceof SimpleObjectHydrator) {
-                    $type = 'SimpleObjectHydrator';
-                } elseif ($this instanceof SingleScalarHydrator) {
-                    $type = 'SingleScalarHydrator';
-                }
-
+            $logger = $this->em->getConfiguration()->getHydrationLogger();
+            if ($logger) {
+                $shortName = (new \ReflectionClass($this))->getShortName();
+                $type = preg_replace('/^Logging/', '', $shortName) ?: $shortName;
                 $logger->start($type);
             }
 
+            // @phpstan-ignore-next-line parent::hydrateAll exists in real hydrator subclasses
             $result = parent::hydrateAll($stmt, $resultSetMapping, $hints);
 
-            if ($logger) {
+            if (isset($logger)) {
                 if (is_countable($result)) {
                     $logger->stop(\count($result), $resultSetMapping->getAliasMap());
                 }

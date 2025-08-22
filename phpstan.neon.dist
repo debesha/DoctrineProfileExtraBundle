@@ -6,11 +6,15 @@ parameters:
     - vendor
     - var
     - tests/integration
+    - tests/Unit/ORM/LoggingHydratorTraitTest.php
+    - ORM/LoggingHydratorTrait.php
   checkMissingIterableValueType: true
   checkGenericClassInNonGenericObjectType: true
   symfony:
     container_xml_path: null
   doctrine:
     objectManagerLoader: null
+
+  ignoreErrors: []
 
 

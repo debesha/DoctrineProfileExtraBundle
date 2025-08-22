@@ -19,13 +19,14 @@ namespace Debesha\DoctrineProfileExtraBundle\ORM;
 
 use Doctrine\Common\EventManager;
 use Doctrine\DBAL\Connection;
+use Doctrine\DBAL\DriverManager;
 use Doctrine\DBAL\Exception;
 use Doctrine\ORM\AbstractQuery;
 use Doctrine\ORM\Configuration;
 use Doctrine\ORM\EntityManager;
 use Doctrine\ORM\Internal\Hydration\AbstractHydrator;
-use Doctrine\ORM\ORMException;
 
+/** @phpstan-ignore-next-line Extending Doctrine EntityManager intentionally for logging */
 class LoggingEntityManager extends EntityManager
 {
     public function newHydrator($hydrationMode): AbstractHydrator
@@ -41,24 +42,30 @@ class LoggingEntityManager extends EntityManager
     }
 
     /**
-     * @throws Exception|ORMException
+     * @param array<string, mixed>|Connection $connection
+     *
+     * @throws Exception
      */
-    public static function create($connection, Configuration $config, ?EventManager $eventManager = null): EntityManager
+    public static function create(array|Connection $connection, Configuration $config, ?EventManager $eventManager = null): EntityManager
     {
         if (!$config->getMetadataDriverImpl()) {
-            throw ORMException::missingMappingDriverImpl();
+            throw new \InvalidArgumentException('Missing mapping driver implementation');
         }
 
         switch (true) {
             case \is_array($connection):
-                $connection = \Doctrine\DBAL\DriverManager::getConnection(
-                    $connection, $config, $eventManager ?: new EventManager()
+                $connection = DriverManager::getConnection(
+                    $connection,
+                    $config
                 );
                 break;
 
             case $connection instanceof Connection:
-                if (null !== $eventManager && $connection->getEventManager() !== $eventManager) {
-                    throw ORMException::mismatchedEventManager();
+                if (null !== $eventManager) {
+                    $connectionEventManager = method_exists($connection, 'getEventManager') ? $connection->getEventManager() : null;
+                    if (null !== $connectionEventManager && $connectionEventManager !== $eventManager) {
+                        throw new \InvalidArgumentException('Mismatched event manager');
+                    }
                 }
                 break;
 
@@ -66,6 +73,11 @@ class LoggingEntityManager extends EntityManager
                 throw new \InvalidArgumentException('Invalid argument');
         }
 
-        return new self($connection, $config, $connection->getEventManager());
+        $em = $eventManager;
+        if (null === $em && method_exists($connection, 'getEventManager')) {
+            $em = $connection->getEventManager();
+        }
+
+        return new self($connection, $config, $em ?: new EventManager());
     }
 }

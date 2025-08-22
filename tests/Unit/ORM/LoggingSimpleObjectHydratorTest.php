@@ -19,12 +19,12 @@ class LoggingSimpleObjectHydratorTest extends TestCase
         $this->hydrator = new LoggingSimpleObjectHydrator($entityManager);
     }
 
-    public function testExtendsSimpleObjectHydrator(): void
+    public function test_extends_simple_object_hydrator(): void
     {
         $this->assertInstanceOf(SimpleObjectHydrator::class, $this->hydrator);
     }
 
-    public function testUsesLoggingHydratorTrait(): void
+    public function test_uses_logging_hydrator_trait(): void
     {
         $reflection = new \ReflectionClass($this->hydrator);
         $traits = $reflection->getTraitNames();
@@ -36,7 +36,7 @@ class LoggingSimpleObjectHydratorTest extends TestCase
         );
     }
 
-    public function testClassStructure(): void
+    public function test_class_structure(): void
     {
         $reflection = new \ReflectionClass($this->hydrator);
 
@@ -48,7 +48,7 @@ class LoggingSimpleObjectHydratorTest extends TestCase
         $this->assertTrue($method->isPublic());
     }
 
-    public function testInheritanceChain(): void
+    public function test_inheritance_chain(): void
     {
         $this->assertInstanceOf(LoggingSimpleObjectHydrator::class, $this->hydrator);
         $this->assertInstanceOf(SimpleObjectHydrator::class, $this->hydrator);

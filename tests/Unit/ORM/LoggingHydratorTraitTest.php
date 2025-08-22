@@ -7,12 +7,12 @@ use PHPUnit\Framework\TestCase;
 
 class LoggingHydratorTraitTest extends TestCase
 {
-    public function testTraitExists(): void
+    public function test_trait_exists(): void
     {
         $this->assertTrue(trait_exists(LoggingHydratorTrait::class));
     }
 
-    public function testTraitCanBeUsed(): void
+    public function test_trait_can_be_used(): void
     {
         // Test that the trait can be used in a class
         $testClass = new class {
@@ -23,7 +23,7 @@ class LoggingHydratorTraitTest extends TestCase
         $this->assertTrue(method_exists($testClass, 'hydrateAll'));
     }
 
-    public function testTraitReflection(): void
+    public function test_trait_reflection(): void
     {
         $reflection = new \ReflectionClass(LoggingHydratorTrait::class);
 

@@ -28,13 +28,13 @@ class HydrationDataCollectorTest extends TestCase
         $this->response = new Response();
     }
 
-    public function testConstructor(): void
+    public function test_constructor(): void
     {
         $this->assertInstanceOf(HydrationDataCollector::class, $this->collector);
         $this->assertEquals([], $this->collector->getHydrations());
     }
 
-    public function testCollectWithLoggingEntityManagers(): void
+    public function test_collect_with_logging_entity_managers(): void
     {
         // Create mock hydration logger with test data
         $hydrationLogger = new HydrationLogger();
@@ -84,7 +84,7 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals('array', $hydrations[1]['type']);
     }
 
-    public function testCollectWithNonLoggingEntityManagers(): void
+    public function test_collect_with_non_logging_entity_managers(): void
     {
         // Create mock regular entity manager
         $regularEntityManager = $this->createMock(ObjectManager::class);
@@ -98,7 +98,7 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals([], $this->collector->getHydrations());
     }
 
-    public function testCollectWithLoggingEntityManagerButNonLoggingConfiguration(): void
+    public function test_collect_with_logging_entity_manager_but_non_logging_configuration(): void
     {
         // Create mock logging entity manager
         $loggingEntityManager = $this->createMock(LoggingEntityManager::class);
@@ -117,7 +117,7 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals([], $this->collector->getHydrations());
     }
 
-    public function testCollectWithEmptyHydrations(): void
+    public function test_collect_with_empty_hydrations(): void
     {
         // Create mock hydration logger with empty data
         $hydrationLogger = new HydrationLogger();
@@ -142,7 +142,7 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals([], $this->collector->getHydrations());
     }
 
-    public function testGetHydrations(): void
+    public function test_get_hydrations(): void
     {
         $testHydrations = [
             ['type' => 'test', 'executionMS' => 0.1],
@@ -157,7 +157,7 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals($testHydrations, $this->collector->getHydrations());
     }
 
-    public function testGetHydrationsCount(): void
+    public function test_get_hydrations_count(): void
     {
         $testHydrations = [
             ['type' => 'test1'],
@@ -174,12 +174,12 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals(3, $this->collector->getHydrationsCount());
     }
 
-    public function testGetHydrationsCountWithEmptyHydrations(): void
+    public function test_get_hydrations_count_with_empty_hydrations(): void
     {
         $this->assertEquals(0, $this->collector->getHydrationsCount());
     }
 
-    public function testGetTime(): void
+    public function test_get_time(): void
     {
         $testHydrations = [
             ['type' => 'test1', 'executionMS' => 0.5],
@@ -197,7 +197,7 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals(1.0, $this->collector->getTime());
     }
 
-    public function testGetTimeWithNoExecutionTime(): void
+    public function test_get_time_with_no_execution_time(): void
     {
         $testHydrations = [
             ['type' => 'test1'],
@@ -213,17 +213,17 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals(0.0, $this->collector->getTime());
     }
 
-    public function testGetTimeWithEmptyHydrations(): void
+    public function test_get_time_with_empty_hydrations(): void
     {
         $this->assertEquals(0.0, $this->collector->getTime());
     }
 
-    public function testGetName(): void
+    public function test_get_name(): void
     {
         $this->assertEquals('hydrations', $this->collector->getName());
     }
 
-    public function testReset(): void
+    public function test_reset(): void
     {
         // First, add some test data
         $testHydrations = [
@@ -249,7 +249,7 @@ class HydrationDataCollectorTest extends TestCase
         $this->assertEquals(0.0, $this->collector->getTime());
     }
 
-    public function testCollectWithMultipleEntityManagers(): void
+    public function test_collect_with_multiple_entity_managers(): void
     {
         // Create first hydration logger with test data
         $hydrationLogger1 = new HydrationLogger();

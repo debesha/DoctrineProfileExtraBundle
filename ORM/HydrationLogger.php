@@ -19,6 +19,8 @@ class HydrationLogger
 {
     /**
      * Executed hydrations.
+     *
+     * @var array<int, array<string, mixed>>
      */
     public array $hydrations = [];
 
@@ -48,6 +50,9 @@ class HydrationLogger
     /**
      * Marks a hydration as stopped. Number of hydrated entities and alias map is
      * passed to method.
+     */
+    /**
+     * @param array<string, string> $aliasMap
      */
     public function stop(int $resultNum, array $aliasMap): void
     {

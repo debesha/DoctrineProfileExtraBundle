@@ -43,7 +43,12 @@ class HydrationDataCollector extends DataCollector
                     return [];
                 }
 
-                return $configuration->getHydrationLogger()->hydrations;
+                $logger = $configuration->getHydrationLogger();
+                if (null === $logger) {
+                    return [];
+                }
+
+                return $logger->hydrations;
             },
             $this->managerRegistry->getManagers(),
         );
@@ -51,7 +56,10 @@ class HydrationDataCollector extends DataCollector
         $this->data['hydrations'] = array_merge(...array_values($hydrationsPerEntityManager));
     }
 
-    public function getHydrations()
+    /**
+     * @return array<int, array<string, mixed>>
+     */
+    public function getHydrations(): array
     {
         return $this->data['hydrations'];
     }

@@ -14,7 +14,7 @@ class HydrationLoggerTest extends TestCase
         $this->logger = new HydrationLogger();
     }
 
-    public function testConstructor(): void
+    public function test_constructor(): void
     {
         $this->assertInstanceOf(HydrationLogger::class, $this->logger);
         $this->assertEquals([], $this->logger->hydrations);
@@ -23,7 +23,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals(0, $this->logger->currentHydration);
     }
 
-    public function testStartWhenEnabled(): void
+    public function test_start_when_enabled(): void
     {
         $this->logger->enabled = true;
 
@@ -36,7 +36,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals('object', $this->logger->hydrations[1]['type']);
     }
 
-    public function testStartWhenDisabled(): void
+    public function test_start_when_disabled(): void
     {
         $this->logger->enabled = false;
         $this->logger->start = 123.45;
@@ -50,7 +50,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertArrayNotHasKey(6, $this->logger->hydrations);
     }
 
-    public function testStartIncrementsCurrentHydration(): void
+    public function test_start_increments_current_hydration(): void
     {
         $this->logger->enabled = true;
 
@@ -64,7 +64,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals(3, $this->logger->currentHydration);
     }
 
-    public function testStartSetsMicrotime(): void
+    public function test_start_sets_microtime(): void
     {
         $this->logger->enabled = true;
 
@@ -76,7 +76,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertLessThanOrEqual($afterStart, $this->logger->start);
     }
 
-    public function testStopWhenEnabled(): void
+    public function test_stop_when_enabled(): void
     {
         $this->logger->enabled = true;
         $this->logger->start('object');
@@ -97,7 +97,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertLessThan(0.11, $this->logger->hydrations[1]['executionMS']);
     }
 
-    public function testStopWhenDisabled(): void
+    public function test_stop_when_disabled(): void
     {
         $this->logger->enabled = false;
         $this->logger->start('object');
@@ -111,7 +111,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEmpty($this->logger->hydrations);
     }
 
-    public function testStopWithoutStart(): void
+    public function test_stop_without_start(): void
     {
         $this->logger->enabled = true;
         $this->logger->currentHydration = 1;
@@ -125,7 +125,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertArrayHasKey('aliasMap', $this->logger->hydrations[1]);
     }
 
-    public function testMultipleHydrations(): void
+    public function test_multiple_hydrations(): void
     {
         $this->logger->enabled = true;
 
@@ -163,7 +163,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals(['e' => 'Entity3'], $this->logger->hydrations[3]['aliasMap']);
     }
 
-    public function testEnableDisable(): void
+    public function test_enable_disable(): void
     {
         // Start with enabled
         $this->logger->enabled = true;
@@ -181,7 +181,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals(2, $this->logger->currentHydration); // Should increment again
     }
 
-    public function testStopWithZeroResults(): void
+    public function test_stop_with_zero_results(): void
     {
         $this->logger->enabled = true;
         $this->logger->start('object');
@@ -193,7 +193,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals([], $this->logger->hydrations[1]['aliasMap']);
     }
 
-    public function testStopWithEmptyAliasMap(): void
+    public function test_stop_with_empty_alias_map(): void
     {
         $this->logger->enabled = true;
         $this->logger->start('object');
@@ -205,7 +205,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals([], $this->logger->hydrations[1]['aliasMap']);
     }
 
-    public function testStopWithComplexAliasMap(): void
+    public function test_stop_with_complex_alias_map(): void
     {
         $this->logger->enabled = true;
         $this->logger->start('object');
@@ -224,7 +224,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertEquals($complexAliasMap, $this->logger->hydrations[1]['aliasMap']);
     }
 
-    public function testExecutionTimeAccuracy(): void
+    public function test_execution_time_accuracy(): void
     {
         $this->logger->enabled = true;
 
@@ -247,7 +247,7 @@ class HydrationLoggerTest extends TestCase
         $this->assertLessThan(0.01, $executionTime);
     }
 
-    public function testHydrationDataStructure(): void
+    public function test_hydration_data_structure(): void
     {
         $this->logger->enabled = true;
         $this->logger->start('object');
