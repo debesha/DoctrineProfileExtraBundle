@@ -46,7 +46,7 @@ class LoggingEntityManager extends EntityManager
      *
      * @throws Exception
      */
-    public static function create(array|Connection $connection, Configuration $config, ?EventManager $eventManager = null): EntityManager
+    public static function create($connection, Configuration $config, ?EventManager $eventManager = null): EntityManager
     {
         if (!$config->getMetadataDriverImpl()) {
             throw new \InvalidArgumentException('Missing mapping driver implementation');
