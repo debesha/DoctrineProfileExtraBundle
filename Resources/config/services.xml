@@ -1,15 +1,10 @@
 <?xml version="1.0" ?>
-<!-- Redefines class parameteres used inside doctine bundle in order to initiate instances of configuration and entity manager of their extended classes
- where logging functionality is added -->
+<!-- The entity manager and configuration classes are swapped for their logging-enabled
+ subclasses by Debesha\DoctrineProfileExtraBundle\DependencyInjection\Compiler\OverrideOrmClassesPass -->
 
 <container xmlns="http://symfony.com/schema/dic/services"
            xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://symfony.com/schema/dic/services http://symfony.com/schema/dic/services/services-1.0.xsd">
-
-    <parameters>
-        <parameter key="doctrine.orm.entity_manager.class">Debesha\DoctrineProfileExtraBundle\ORM\LoggingEntityManager</parameter>
-        <parameter key="doctrine.orm.configuration.class">Debesha\DoctrineProfileExtraBundle\ORM\LoggingConfiguration</parameter>
-    </parameters>
 
     <services>
         <service id="debesha.doctrine_extra_profiler.data_collector"
