@@ -23,10 +23,10 @@ class LoggingConfiguration extends \Doctrine\ORM\Configuration
         if (property_exists($this, '_attributes')) {
             // ORM 2
             return $this->_attributes['hydrationLogger'] ?? null;
-        } else {
-            // ORM 3
-            return $this->attributes['hydrationLogger'] ?? null;
         }
+
+        // ORM 3
+        return $this->attributes['hydrationLogger'] ?? null;
     }
 
     public function setHydrationLogger(HydrationLogger $logger): void
