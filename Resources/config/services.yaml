@@ -1,0 +1,13 @@
+# The entity manager and configuration classes are swapped for their logging-enabled
+# subclasses by Debesha\DoctrineProfileExtraBundle\DependencyInjection\Compiler\OverrideOrmClassesPass
+
+services:
+    debesha.doctrine_extra_profiler.data_collector:
+        class: Debesha\DoctrineProfileExtraBundle\DataCollector\HydrationDataCollector
+        public: false
+        arguments:
+            - '@doctrine'
+        tags:
+            - name: data_collector
+              template: '@DebeshaDoctrineProfileExtra/Collector/hydrations.html.twig'
+              id: hydrations
