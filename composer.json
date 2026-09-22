@@ -25,6 +25,7 @@
         "doctrine/doctrine-bundle": "^2.11|^3.0",
         "symfony/framework-bundle": "^5.4|^6.0|^7.0",
         "symfony/twig-bundle": "^5.4|^6.0|^7.0",
+        "symfony/yaml": "^5.4|^6.0|^7.0",
         "twig/twig": "^3.11"
     },
     "require-dev": {
